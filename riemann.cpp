@@ -196,7 +196,7 @@ gas_state_function solver::solve_configuarion_b()
         / ((gamma_ + 1) + (gamma_ - 1) * pressure_star / right_.pressure);
 
     real left_moving_wave_speed = left_.velocity
-        + left_sound_velocity_
+        - left_sound_velocity_
             * pow(plus_gamma_fraction_ * pressure_star / left_.pressure + minus_gamma_fraction_, 0.5);
 
     real right_moving_wave_speed = right_.velocity
@@ -275,7 +275,7 @@ gas_state_function solver::solve_configuarion_c()
     real left_moving_wave_back_speed
         = velocity_star - left_sound_velocity_ * pow(pressure_star / left_.pressure, minus_gamma_fraction_);
 
-    real right_moving_wave_front_speed = right_.velocity - right_sound_velocity_;
+    real right_moving_wave_front_speed = right_.velocity + right_sound_velocity_;
     real right_moving_wave_back_speed
         = velocity_star + right_sound_velocity_ * pow(pressure_star / right_.pressure, minus_gamma_fraction_);
 
