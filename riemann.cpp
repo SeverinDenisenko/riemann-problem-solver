@@ -1,8 +1,7 @@
 #include "riemann.hpp"
 
-#include <arm/types.h>
+#include <cmath>
 #include <functional>
-#include <stdexcept>
 #include <utility>
 
 namespace riemann {
@@ -132,32 +131,32 @@ gas_state_function solver::solve_configuarion_a()
 
         if (x < left_moving_wave_front_position) {
             return gas_state {
-                .velocity = left_.velocity,
                 .density  = left_.density,
+                .velocity = left_.velocity,
                 .pressure = left_.pressure,
             };
         } else if (x < left_moving_wave_back_position) {
             return gas_state {
-                .velocity = velocity_inside_left_moving_wave(t, x),
                 .density  = density_inside_left_moving_wave(t, x),
+                .velocity = velocity_inside_left_moving_wave(t, x),
                 .pressure = pressure_inside_left_moving_wave(t, x),
             };
         } else if (x < middle_discontinuity_position) {
             return gas_state {
-                .velocity = velocity_star,
                 .density  = density_star_left,
+                .velocity = velocity_star,
                 .pressure = pressure_star,
             };
         } else if (x < right_moving_wave_position) {
             return gas_state {
-                .velocity = velocity_star,
                 .density  = density_star_right,
+                .velocity = velocity_star,
                 .pressure = pressure_star,
             };
         } else {
             return gas_state {
-                .velocity = right_.velocity,
                 .density  = right_.density,
+                .velocity = right_.velocity,
                 .pressure = right_.pressure,
             };
         }
@@ -216,26 +215,26 @@ gas_state_function solver::solve_configuarion_b()
 
         if (x < left_moving_wave_position) {
             return gas_state {
-                .velocity = left_.velocity,
                 .density  = left_.density,
+                .velocity = left_.velocity,
                 .pressure = left_.pressure,
             };
         } else if (x < middle_discontinuity_position) {
             return gas_state {
-                .velocity = velocity_star,
                 .density  = density_star_left,
+                .velocity = velocity_star,
                 .pressure = pressure_star,
             };
         } else if (x < right_moving_wave_position) {
             return gas_state {
-                .velocity = velocity_star,
                 .density  = density_star_right,
+                .velocity = velocity_star,
                 .pressure = pressure_star,
             };
         } else {
             return gas_state {
-                .velocity = right_.velocity,
                 .density  = right_.density,
+                .velocity = right_.velocity,
                 .pressure = right_.pressure,
             };
         }
@@ -334,38 +333,38 @@ gas_state_function solver::solve_configuarion_c()
 
         if (x < left_moving_wave_front_position) {
             return gas_state {
-                .velocity = left_.velocity,
                 .density  = left_.density,
+                .velocity = left_.velocity,
                 .pressure = left_.pressure,
             };
         } else if (x < left_moving_wave_back_position) {
             return gas_state {
-                .velocity = velocity_inside_left_moving_wave(t, x),
                 .density  = density_inside_left_moving_wave(t, x),
+                .velocity = velocity_inside_left_moving_wave(t, x),
                 .pressure = pressure_inside_left_moving_wave(t, x),
             };
         } else if (x < middle_discontinuity_position) {
             return gas_state {
-                .velocity = velocity_star,
                 .density  = density_star_left,
+                .velocity = velocity_star,
                 .pressure = pressure_star,
             };
         } else if (x < right_moving_wave_back_position) {
             return gas_state {
-                .velocity = velocity_star,
                 .density  = density_star_right,
+                .velocity = velocity_star,
                 .pressure = pressure_star,
             };
         } else if (x < right_moving_wave_front_position) {
             return gas_state {
-                .velocity = velocity_inside_right_moving_wave(t, x),
                 .density  = density_inside_right_moving_wave(t, x),
+                .velocity = velocity_inside_right_moving_wave(t, x),
                 .pressure = pressure_inside_right_moving_wave(t, x),
             };
         } else {
             return gas_state {
-                .velocity = right_.velocity,
                 .density  = right_.density,
+                .velocity = right_.velocity,
                 .pressure = right_.pressure,
             };
         }
@@ -390,7 +389,7 @@ namespace newton {
             res = guess - f(guess) / derivative;
             std::swap(res, guess);
 
-            if (abs(res - guess) < precision) {
+            if (std::abs(res - guess) < precision) {
                 break;
             }
         }
