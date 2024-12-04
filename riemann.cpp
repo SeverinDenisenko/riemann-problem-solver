@@ -178,7 +178,7 @@ gas_state_function solver::solve_configuarion_b()
     function velocity_star_right = [this](real pressure_star) -> real {
         return right_.velocity
             + 1 / (right_.density * right_sound_velocity_) * (pressure_star - right_.pressure)
-            / sqrt(plus_gamma_fraction_ * pressure_star / right_.pressure - minus_gamma_fraction_);
+            / sqrt(plus_gamma_fraction_ * pressure_star / right_.pressure + minus_gamma_fraction_);
     };
 
     function pressure_solving_function = [velocity_star_left, velocity_star_right](real pressure_star) -> real {
